@@ -1,8 +1,25 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+
+const allPosts = await getCollection("articles");
+const projectPosts = allPosts.filter((post) => post.data.type === "project");
 ---
 
 <Layout title="Projects">
     <h2>Projects</h2>
-    <p>This is where the projects will be listed.</p>
+    <ul>
+        {
+            projectPosts.map((post) => (
+                <li>
+                    <a href={`/article/${post.slug}`}>{post.data.title}</a>
+                    <p>{post.data.description}</p>
+                    <small>
+                        Published on:{" "}
+                        {post.data.publishDate.toLocaleDateString()}
+                    </small>
+                </li>
+            ))
+        }
+    </ul>
 </Layout>

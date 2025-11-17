@@ -1,0 +1,119 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+// 1. Generate a static page for every book that has a review
+export async function getStaticPaths() {
+    const books = await getCollection("books");
+    // Filter for books that actually have a markdown body
+    const booksWithReviews = books.filter(
+        (book) => book.body && book.body.trim().length > 0,
+    );
+
+    return booksWithReviews.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+// 2. Get the entry for the current page from Astro.props
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Helper function to render stars
+const renderStars = (rating: number | undefined) => {
+    if (rating === undefined || rating === null) {
+        return `<span>Not rated</span>`;
+    }
+    let stars = "";
+    for (let i = 1; i <= 5; i++) {
+        stars += i <= rating ? "★" : "☆";
+    }
+    return stars;
+};
+---
+
+<Layout title={`Review: ${entry.data.title}`}>
+    <div class="review-container">
+        <div class="book-details">
+            <img
+                src={entry.data.cover}
+                alt={`Cover of ${entry.data.title}`}
+                class="review-cover"
+            />
+            <h1>{entry.data.title}</h1>
+            <p class="author">by {entry.data.author}</p>
+            <div class="stars" set:html={renderStars(entry.data.rating)} />
+        </div>
+
+        <hr />
+
+        <div class="review-content">
+            <Content />
+        </div>
+
+        <a href="/books" class="back-link">&larr; Back to Bookshelf</a>
+    </div>
+</Layout>
+
+<style>
+    .review-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .book-details {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .review-cover {
+        max-width: 250px;
+        margin: 0 auto 1rem;
+        border: 2px solid #0f0;
+    }
+
+    h1 {
+        margin-bottom: 0.25rem;
+    }
+
+    .author {
+        font-size: 1.2em;
+        color: #aaa;
+        margin-top: 0;
+    }
+
+    .stars {
+        font-size: 1.5em;
+        color: #0f0;
+    }
+
+    .review-content {
+        line-height: 1.7;
+        font-size: 1.1em;
+    }
+
+    .review-content h2 {
+        color: #0f0;
+        border-bottom: 1px solid #0f0;
+        padding-bottom: 0.5rem;
+    }
+
+    .review-content ul {
+        list-style-type: "» ";
+        padding-left: 1.5rem;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 3rem;
+        color: #0f0;
+        text-decoration: none;
+        border: 1px solid #0f0;
+        padding: 0.5rem 1rem;
+    }
+    .back-link:hover {
+        background-color: #0f0;
+        color: #000;
+    }
+</style>

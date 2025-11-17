@@ -1,0 +1,12 @@
+/*
+  Make sure to have 'tile.png' and 'end.png' in the 'public' directory.
+  'tile.png' is the repeating starry background.
+  'end.png' is the non-repeating image with clouds and mountains at the bottom.
+*/
+body {
+    background-image: url("/tile.png"), url("/end.png");
+    background-repeat: repeat, no-repeat;
+    background-position: top, bottom;
+    background-attachment: scroll; /* Ensures the landscape scrolls with the page */
+    min-height: 100vh; /* Ensures the body is at least the height of the viewport */
+}

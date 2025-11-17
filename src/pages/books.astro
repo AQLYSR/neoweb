@@ -1,8 +1,355 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+
+const allBooks = await getCollection("books");
+
+// Helper function to render stars for ratings
+const renderStars = (rating: number | undefined) => {
+    if (rating === undefined || rating === null) {
+        return `<span class="stars-not-rated">Not rated yet</span>`;
+    }
+    let stars = "";
+    for (let i = 1; i <= 5; i++) {
+        stars += i <= rating ? "★" : "☆";
+    }
+    return stars;
+};
+
+// Pre-filter books into categories for the specific views
+const readBooks = allBooks.filter((book) => book.data.status === "read");
+const readingBooks = allBooks.filter((book) => book.data.status === "reading");
+const wantToReadBooks = allBooks.filter(
+    (book) => book.data.status === "want to read",
+);
 ---
 
-<Layout title="Books">
-    <h2>Books</h2>
-    <p>This is where the books will be listed.</p>
+<Layout title="My Bookshelf">
+    <h2>My Bookshelf</h2>
+    <p>
+        A collection of books I've read, am currently reading, or want to read.
+    </p>
+
+    <div class="filter-buttons">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="read">Read</button>
+        <button data-filter="reading">Reading</button>
+        <button data-filter="want to read">Want to Read</button>
+    </div>
+
+    <div class="books-container">
+        <!-- "All" Section -->
+        <section id="all-section" class="book-section" data-status="all">
+            <div class="book-grid">
+                {
+                    allBooks.map((book) => {
+                        const hasReview =
+                            book.body && book.body.trim().length > 0;
+                        const CardWrapper = hasReview ? "a" : "div";
+                        return (
+                            <CardWrapper
+                                href={
+                                    hasReview ? `/book/${book.slug}` : undefined
+                                }
+                                class:list={[
+                                    "book-card",
+                                    { clickable: hasReview },
+                                ]}
+                            >
+                                <div class="card-image-wrapper">
+                                    <img
+                                        src={book.data.cover}
+                                        alt={`Cover of ${book.data.title}`}
+                                        class="book-cover"
+                                    />
+                                    <span class="status-badge">
+                                        {book.data.status}
+                                    </span>
+                                </div>
+                                <div class="book-info">
+                                    <h4>{book.data.title}</h4>
+                                    <p class="author">{book.data.author}</p>
+                                    <div
+                                        class="stars"
+                                        set:html={renderStars(book.data.rating)}
+                                    />
+                                </div>
+                            </CardWrapper>
+                        );
+                    })
+                }
+            </div>
+        </section>
+
+        <!-- Read Section -->
+        <section
+            id="read-section"
+            class="book-section hidden"
+            data-status="read"
+        >
+            <h3>Read</h3>
+            <div class="book-grid">
+                {
+                    readBooks.map((book) => {
+                        const hasReview =
+                            book.body && book.body.trim().length > 0;
+                        const CardWrapper = hasReview ? "a" : "div";
+                        return (
+                            <CardWrapper
+                                href={
+                                    hasReview ? `/book/${book.slug}` : undefined
+                                }
+                                class:list={[
+                                    "book-card",
+                                    { clickable: hasReview },
+                                ]}
+                            >
+                                <div class="card-image-wrapper">
+                                    <img
+                                        src={book.data.cover}
+                                        alt={`Cover of ${book.data.title}`}
+                                        class="book-cover"
+                                    />
+                                    <span class="status-badge">Read</span>
+                                </div>
+                                <div class="book-info">
+                                    <h4>{book.data.title}</h4>
+                                    <p class="author">{book.data.author}</p>
+                                    <div
+                                        class="stars"
+                                        set:html={renderStars(book.data.rating)}
+                                    />
+                                </div>
+                            </CardWrapper>
+                        );
+                    })
+                }
+            </div>
+        </section>
+
+        <!-- Reading Section -->
+        <section
+            id="reading-section"
+            class="book-section hidden"
+            data-status="reading"
+        >
+            <h3>Currently Reading</h3>
+            <div class="book-grid">
+                {
+                    readingBooks.map((book) => (
+                        <div class="book-card">
+                            <div class="card-image-wrapper">
+                                <img
+                                    src={book.data.cover}
+                                    alt={`Cover of ${book.data.title}`}
+                                    class="book-cover"
+                                />
+                                <span class="status-badge">Reading</span>
+                            </div>
+                            <div class="book-info">
+                                <h4>{book.data.title}</h4>
+                                <p class="author">{book.data.author}</p>
+                                <div
+                                    class="stars"
+                                    set:html={renderStars(book.data.rating)}
+                                />
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Want to Read Section -->
+        <section
+            id="want-to-read-section"
+            class="book-section hidden"
+            data-status="want to read"
+        >
+            <h3>Want to Read</h3>
+            <div class="book-grid">
+                {
+                    wantToReadBooks.map((book) => (
+                        <div class="book-card">
+                            <div class="card-image-wrapper">
+                                <img
+                                    src={book.data.cover}
+                                    alt={`Cover of ${book.data.title}`}
+                                    class="book-cover"
+                                />
+                                <span class="status-badge">Want to Read</span>
+                            </div>
+                            <div class="book-info">
+                                <h4>{book.data.title}</h4>
+                                <p class="author">{book.data.author}</p>
+                                <div
+                                    class="stars"
+                                    set:html={renderStars(book.data.rating)}
+                                />
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+    </div>
 </Layout>
+
+<style>
+    .filter-buttons {
+        margin-bottom: 2rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .filter-buttons button {
+        font-family: "FSEX300", monospace;
+        background-color: transparent;
+        border: 1px solid #0f0;
+        color: #0f0;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition:
+            background-color 0.3s,
+            color 0.3s;
+    }
+
+    .filter-buttons button:hover,
+    .filter-buttons button.active {
+        background-color: #0f0;
+        color: #000;
+    }
+
+    .book-section {
+        margin-bottom: 3rem;
+    }
+
+    .book-section.hidden {
+        display: none;
+    }
+
+    .book-section h3 {
+        border-bottom: 1px solid #0f0;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .book-grid {
+        display: grid;
+        /* Updated to make cards wider, aiming for 3 per row on avg screens */
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .book-card {
+        border: 1px solid #0f0;
+        background-color: #000;
+        text-align: center;
+        text-decoration: none;
+        color: #0f0;
+        display: flex;
+        flex-direction: column;
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+    }
+
+    .book-card.clickable:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+    }
+
+    .card-image-wrapper {
+        position: relative;
+    }
+
+    .status-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #0f0;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.75em;
+        border: 1px solid #0f0;
+        border-radius: 4px;
+        text-transform: capitalize;
+    }
+
+    .book-cover {
+        width: 100%;
+        /* Reverted to be more vertically rectangular */
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+    }
+
+    .book-info {
+        padding: 1rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .book-info h4 {
+        margin: 0 0 0.25rem;
+        font-size: 1em;
+    }
+
+    .book-info .author {
+        font-size: 0.8em;
+        margin: 0 0 0.5rem;
+        color: #aaa;
+    }
+
+    .stars {
+        color: #0f0;
+        font-size: 1.1em;
+    }
+
+    .stars-not-rated {
+        font-size: 0.8em;
+        color: #888;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const filterButtonsContainer =
+            document.querySelector(".filter-buttons");
+        if (!filterButtonsContainer) return;
+
+        const allBookSections = document.querySelectorAll(".book-section");
+        const buttons = filterButtonsContainer.querySelectorAll("button");
+
+        filterButtonsContainer.addEventListener("click", (event) => {
+            const target = event.target;
+            if (target.tagName !== "BUTTON") return;
+
+            buttons.forEach((button) => button.classList.remove("active"));
+            target.classList.add("active");
+
+            const filter = target.dataset.filter;
+
+            allBookSections.forEach((section) => {
+                // If filter is 'all', show only the 'all' section
+                // Otherwise, show only the sections that do NOT have data-status='all' AND match the filter
+                if (filter === "all") {
+                    if (section.dataset.status === "all") {
+                        section.classList.remove("hidden");
+                    } else {
+                        section.classList.add("hidden");
+                    }
+                } else {
+                    if (section.dataset.status === "all") {
+                        section.classList.add("hidden");
+                    } else if (section.dataset.status === filter) {
+                        section.classList.remove("hidden");
+                    } else {
+                        section.classList.add("hidden");
+                    }
+                }
+            });
+        });
+    });
+</script>
