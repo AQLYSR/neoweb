@@ -3,10 +3,29 @@
   'tile.png' is the repeating starry background.
   'end.png' is the non-repeating image with clouds and mountains at the bottom.
 */
+html {
+    min-height: 100vh;
+}
 body {
-    background-image: url("/tile.png"), url("/end.png");
-    background-repeat: repeat, no-repeat;
-    background-position: top, bottom;
-    background-attachment: scroll; /* Ensures the landscape scrolls with the page */
-    min-height: 100vh; /* Ensures the body is at least the height of the viewport */
+    margin: 0;
+    min-height: 100vh;
+    background-image: url("end.png"), url("tile.png");
+    background-repeat: no-repeat, repeat-y;
+    background-position:
+        center bottom,
+        center top;
+    background-size:
+        100% auto,
+        100% auto;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 uato;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 200px;
+    background-image: none;
 }
