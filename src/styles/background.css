@@ -10,8 +10,8 @@ html {
 body {
     margin: 0;
     min-height: 100vh;
-    background-color: #4B73A7;
-    background-image: url("end.webp"), url("tile.webp");
+    background-color: #4b73a7;
+    background-image: url("/end.webp"), url("/tile.webp");
     background-repeat: no-repeat, repeat-y;
     background-position:
         center bottom,
