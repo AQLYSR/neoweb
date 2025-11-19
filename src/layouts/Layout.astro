@@ -4,7 +4,7 @@ import "../styles/global.css";
 import "../styles/background.css";
 import "../styles/fonts.css";
 
-const { title } = Astro.props;
+const { title, noBox = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,9 +23,17 @@ const { title } = Astro.props;
             </header>
 
             <div class="content-wrapper">
-                <main class="box main-content">
-                    <slot />
-                </main>
+                {
+                    noBox ? (
+                        <main class="main-content no-box">
+                            <slot />
+                        </main>
+                    ) : (
+                        <main class="box main-content">
+                            <slot />
+                        </main>
+                    )
+                }
 
                 <aside class="sidebar">
                     <Navigation />

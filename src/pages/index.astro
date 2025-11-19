@@ -1,158 +1,111 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+
+// 1. Fetch all articles
+const allArticles = await getCollection("articles");
+
+// 2. Sort all articles by date, newest first
+allArticles.sort(
+    (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+
+// 3. Filter and slice to get the 7 most recent of each type
+const recentBlogs = allArticles
+    .filter((post) => post.data.type === "blog")
+    .slice(0, 7);
+const recentProjects = allArticles
+    .filter((post) => post.data.type === "project")
+    .slice(0, 7);
 ---
 
-<Layout title="Home">
-    <h2>Home</h2>
-    <p>
-        This is where the main page content will go, depending on what the user
-        clicks.
-    </p>
-    <p>Scroll down to see the landscape at the bottom!</p>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-        Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies
-        sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius
-        a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy
-        molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.
-        Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium
-        a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra
-        tempor. Cras vestibulum bibendum lorem. Pellentesque commodo massa a
-        justo.
-    </p>
-    <p>
-        Praesent ut quam. In hac habitasse platea dictumst. Integer lorem. In
-        tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
-        eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
-        eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat
-        a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
-        rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
-        ullamcorper ultricies nisi. Nam eget dui.
-    </p>
-    <p>
-        Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem
-        quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam
-        nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec
-        odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis
-        faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus
-        tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales
-        sagittis magna.
-    </p>
-    <p>
-        Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis
-        gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum
-        purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam
-        accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla.
-        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-        cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium
-        turpis et arcu.
-    </p>
-    <p>
-        Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-        ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,
-        consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus
-        ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat
-        pretium libero. Cras id dui. Aenean ut eros et nisl sagittis vestibulum.
-        Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat,
-        pede.
-    </p>
-    <p>
-        Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis
-        leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.
-    </p>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at nibh
-        pharetra, cursus odio vitae, mollis neque. Praesent eleifend, orci vitae
-        maximus tempus, tellus massa iaculis dolor, id semper sapien metus eget
-        enim. Cras fermentum malesuada ex, sit amet egestas augue viverra quis.
-        Proin ac odio sagittis, tristique mauris id, porta nulla. Pellentesque
-        consectetur bibendum mauris, tempus maximus quam porta dictum. Donec
-        facilisis nunc non dolor malesuada, et rhoncus tellus vehicula.
-        Vestibulum eget lacinia dolor. Donec turpis nunc, blandit nec tellus
-        eget, venenatis ultricies metus. Pellentesque diam felis, blandit vitae
-        tincidunt sit amet, interdum dictum mauris. Morbi placerat dolor a
-        libero porttitor, quis euismod augue imperdiet. Vivamus ornare venenatis
-        finibus. Maecenas ac malesuada nibh. Quisque dignissim varius arcu ut
-        placerat. Proin velit urna, aliquet at bibendum sollicitudin, bibendum
-        in metus. In in nulla eget augue volutpat varius ut vel enim. Proin mi
-        felis, dapibus tempus porttitor in, interdum et nulla. Curabitur auctor
-        sit amet elit a maximus. Quisque at tempor sem. Nunc aliquam justo at
-        massa aliquam ultricies. Nulla tempus sem vel eros porta maximus. Mauris
-        a felis elit. Phasellus sit amet magna auctor, vulputate magna sit amet,
-        efficitur libero. Suspendisse non vehicula leo. Suspendisse cursus orci
-        eget tellus vulputate, eget dapibus diam bibendum. Sed a felis mattis,
-        rhoncus purus sed, tempor orci. Mauris lacinia est justo, a interdum
-        lorem dignissim non. Class aptent taciti sociosqu ad litora torquent per
-        conubia nostra, per inceptos himenaeos. Aliquam viverra lacus et dui
-        tempus placerat. Aenean feugiat turpis odio, quis rhoncus magna
-        tristique nec. Pellentesque non justo rutrum, sodales odio sed,
-        sollicitudin est. Mauris tincidunt luctus velit id ornare. Duis sed mi
-        nibh. Integer malesuada purus in leo facilisis, ac scelerisque libero
-        eleifend. Proin rutrum imperdiet elit a euismod. Maecenas consectetur
-        dapibus enim vel feugiat. In accumsan urna felis, sollicitudin eleifend
-        leo sodales et. Proin non placerat leo. Phasellus condimentum pretium
-        lectus ut viverra. Praesent mollis bibendum magna, quis tempus dolor
-        mattis non. Suspendisse convallis magna id ultricies vehicula. Etiam
-        sollicitudin sem ac massa malesuada lacinia. Integer eget massa erat.
-        Mauris et purus molestie, rhoncus metus at, aliquam felis. Quisque
-        auctor semper augue nec sagittis. Proin ultrices odio nec ornare semper.
-        Sed vehicula neque consectetur neque semper finibus. Nunc in dolor
-        congue velit hendrerit sagittis. In tincidunt nisi augue, quis accumsan
-        nisi pharetra vitae. Duis vitae tellus scelerisque, vestibulum tellus
-        eget, ultricies neque. Ut hendrerit, massa non volutpat consequat, felis
-        massa scelerisque purus, a pharetra felis odio vitae felis. Cras non
-        tristique ex. Vestibulum ante ipsum primis in faucibus orci luctus et
-        ultrices posuere cubilia curae; Donec vitae libero neque. Proin diam
-        nibh, gravida et neque et, pulvinar posuere diam. Ut id porttitor neque,
-        a pellentesque libero. Morbi erat urna, porta in rhoncus ut, sagittis id
-        felis. Nullam sit amet sem egestas, pharetra magna vel, auctor ante.
-        Donec iaculis, nunc vitae porta ornare, dui neque euismod erat, ut
-        vestibulum ante felis nec mi. Vestibulum hendrerit, odio a pellentesque
-        scelerisque, mauris risus finibus libero, lobortis ornare nulla ex
-        efficitur risus. Nulla facilisi. Nunc odio turpis, sollicitudin quis
-        imperdiet ac, hendrerit non velit. Sed sed elit venenatis, lacinia augue
-        pulvinar, sodales magna. Proin non tempus nunc. In dignissim ante eget
-        volutpat auctor. Fusce eleifend tristique nunc, sed sodales nunc
-        bibendum ac. Maecenas dolor nisi, fermentum ac purus ut, placerat
-        malesuada mi. Proin sollicitudin quam id pretium efficitur. Cras
-        fringilla ac urna nec mattis. Suspendisse potenti. In elementum varius
-        eros ac iaculis. Suspendisse finibus ornare dui, vel viverra libero
-        iaculis sit amet. Nullam iaculis a elit imperdiet placerat. Quisque at
-        viverra velit. Vivamus gravida, nisi sed eleifend interdum, nibh massa
-        finibus nulla, ac ornare leo justo at tortor. Etiam rutrum eleifend
-        condimentum. Nam sagittis finibus metus non scelerisque. Pellentesque
-        eget risus nec nunc porttitor varius. Aliquam erat volutpat. Maecenas
-        feugiat hendrerit nibh quis sodales. Vestibulum sed ornare purus, ac
-        rutrum turpis. Vivamus ultrices neque ac rhoncus lobortis. In suscipit,
-        nisi sit amet fringilla mattis, tellus risus pellentesque lorem, sit
-        amet suscipit nibh nulla quis ligula. Suspendisse nisi ipsum, ultricies
-        vitae erat id, fermentum lacinia nibh. Quisque at massa lectus. Nullam
-        dictum bibendum tincidunt. Morbi nec consectetur sapien, nec dignissim
-        purus. Ut luctus congue hendrerit. Duis eget felis at ipsum vulputate
-        posuere. Integer euismod ac ligula in sagittis. Vivamus semper, ex at
-        tincidunt volutpat, quam massa dapibus velit, at faucibus lectus justo
-        eu sapien. Praesent dui urna, tristique eget interdum ac, sagittis nec
-        lorem. Aenean eu gravida diam. Donec a justo non elit gravida
-        ullamcorper nec in metus. Donec justo sem, pellentesque vel urna a,
-        condimentum varius augue. Morbi at felis sed metus lacinia facilisis.
-        Donec sit amet mi vehicula, viverra arcu sed, vehicula sapien. Proin
-        ullamcorper purus eu arcu feugiat, nec pulvinar nulla porttitor. Sed eu
-        odio dignissim sem pulvinar auctor. Aliquam eleifend, leo a laoreet
-        semper, ante ante bibendum dui, in euismod nunc enim eu neque. Donec
-        tincidunt, nisi ut lacinia malesuada, erat tortor cursus elit, sit amet
-        varius neque turpis eget lorem. Maecenas ullamcorper dictum posuere.
-        Integer tempor sapien ante, eget lacinia metus interdum sed. Donec a
-        feugiat eros, vel cursus dui. In orci neque, tincidunt non scelerisque
-        id, tempus nec nisi. Donec mollis, nunc eget auctor pharetra, odio
-        sapien auctor odio, a vehicula eros nisi at turpis. Nullam iaculis quam
-        leo, vel efficitur libero aliquet mollis. Interdum et malesuada fames ac
-        ante ipsum primis in faucibus. Nullam fermentum lectus non quam interdum
-        vehicula. Vestibulum ante ipsum primis in faucibus orci luctus et
-        ultrices posuere cubilia curae; Proin risus dolor, placerat at iaculis
-        eget, sagittis varius est. Quisque semper lectus vitae ligula ultrices,
-        a placerat tellus sodales. In eget magna eget erat faucibus vulputate
-        sed et est. Nunc et porttitor dolor. Aliquam vulputate lacus eu mauris
-        vestibulum lobortis. Praesent diam augue, rhoncus ac magna efficitur,
-        iaculis tempor nisl. :
-    </p>
+<Layout title="Home" noBox={true}>
+    <!-- About Section -->
+    <div class="box">
+        <h2>About Me</h2>
+        <p>
+            This is a short summary of who I am and what I do. You can replace
+            this text with your own personal introduction. Welcome to my
+            personal space on the web!
+        </p>
+        <a href="/about" class="more-link">Read More &rarr;</a>
+    </div>
+
+    <!-- Recent Blogs Section -->
+    <div class="box">
+        <h2>Recent Blog Posts</h2>
+        <ul class="recent-list">
+            {
+                recentBlogs.map((post) => (
+                    <li>
+                        <a href={`/article/${post.slug}`}>
+                            {post.data.title} -{" "}
+                            {post.data.publishDate.toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                            })}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+        <a href="/blog" class="more-link">All Posts &rarr;</a>
+    </div>
+
+    <!-- Recent Projects Section -->
+    <div class="box">
+        <h2>Recent Projects</h2>
+        <ul class="recent-list">
+            {
+                recentProjects.map((post) => (
+                    <li>
+                        <a href={`/article/${post.slug}`}>
+                            {post.data.title} -{" "}
+                            {post.data.publishDate.toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                            })}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+        <a href="/projects" class="more-link">All Projects &rarr;</a>
+    </div>
 </Layout>
+
+<style>
+    .box {
+        margin-bottom: 2rem;
+    }
+    .box:last-child {
+        margin-bottom: 0;
+    }
+    h2 {
+        margin-top: 0;
+        border-bottom: 1px solid #a9c1e8;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .recent-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+    }
+    .recent-list li {
+        margin-bottom: 0.5rem;
+    }
+    .recent-list a {
+        text-decoration: none;
+        transition: color 0.2s ease-in-out;
+    }
+    .recent-list a:hover {
+        color: #fff; /* A slightly brighter color on hover */
+    }
+    .more-link {
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>
