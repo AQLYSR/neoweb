@@ -49,7 +49,9 @@ const wantToReadBooks = allBooks.filter(
                         return (
                             <CardWrapper
                                 href={
-                                    hasReview ? `/book/${book.slug}` : undefined
+                                    hasReview
+                                        ? `${import.meta.env.BASE_URL}book/${book.slug}`
+                                        : undefined
                                 }
                                 class:list={[
                                     "book-card",
@@ -97,7 +99,9 @@ const wantToReadBooks = allBooks.filter(
                         return (
                             <CardWrapper
                                 href={
-                                    hasReview ? `/book/${book.slug}` : undefined
+                                    hasReview
+                                        ? `${import.meta.env.BASE_URL}book/${book.slug}`
+                                        : undefined
                                 }
                                 class:list={[
                                     "book-card",

@@ -12,7 +12,9 @@ const projectPosts = allPosts.filter((post) => post.data.type === "project");
         {
             projectPosts.map((post) => (
                 <li>
-                    <a href={`/article/${post.slug}`}>{post.data.title}</a>
+                    <a href={`${import.meta.env.BASE_URL}article/${post.slug}`}>
+                        {post.data.title}
+                    </a>
                     <p>{post.data.description}</p>
                     <small>
                         Published on:{" "}
