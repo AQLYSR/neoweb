@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="About LinkedIn...">
+    <div class="linkedin-message">
+        <h2>i don't like linkedin btw.</h2>
+        <a href="/">go back home</a>
+    </div>
+</Layout>
+
+<style>
+    .linkedin-message {
+        text-align: center;
+        padding: 4rem 1rem;
+    }
+    .linkedin-message h2 {
+        margin-bottom: 2rem;
+        font-size: 1.5em;
+    }
+    .linkedin-message a {
+        text-decoration: none;
+        border-bottom: 1px solid #a9c1e8;
+        padding-bottom: 3px;
+        transition:
+            background-color 0.2s ease-in-out,
+            color 0.2s ease-in-out;
+    }
+    .linkedin-message a:hover {
+        background-color: #a9c1e8;
+        color: #000;
+    }
+</style>

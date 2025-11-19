@@ -1,7 +1,7 @@
 body {
     font-family: "FSEX300", monospace;
     font-size: 16px;
-    color: #0f0;
+    color: #a9c1e8;
     margin: 0;
 }
 
@@ -15,9 +15,58 @@ body {
 }
 
 .box {
-    border: 2px solid #0f0;
     padding: 20px;
-    background-color: transparent;
+    position: relative;
+    isolation: isolate;
+}
+
+.box::before,
+.box::after {
+    content: "";
+    position: absolute;
+    clip-path: polygon(0 4px,
+            2px 4px,
+            2px 2px,
+            4px 2px,
+            4px 0,
+            calc(100% - 4px) 0,
+            calc(100% - 4px) 2px,
+            calc(100% - 2px) 2px,
+            calc(100% - 2px) 4px,
+            100% 4px,
+            100% calc(100% - 4px),
+            calc(100% - 2px) calc(100% - 4px),
+            calc(100% - 2px) calc(100% - 2px),
+            calc(100% - 4px) calc(100% - 2px),
+            calc(100% - 4px) 100%,
+            4px 100%,
+            4px calc(100% - 2px),
+            2px calc(100% - 2px),
+            2px calc(100% - 4px),
+            0 calc(100% - 4px));
+}
+
+/* Border layer */
+.box::before {
+    inset: 0;
+    background-color: #a9c1e8;
+    z-index: -2;
+    padding: 1px;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* Background layer */
+.box::after {
+    inset: 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 
 .header {
@@ -42,6 +91,15 @@ body {
 
 .footer {
     text-align: center;
-    font-size: 0.9em;
+    font-size: 1.1em;
     padding: 10px;
+    border: none;
+    background-color: transparent;
+    color: #a9c1e8;
+}
+
+/* Make all links inherit color and stay consistent */
+a,
+a:visited {
+    color: inherit;
 }

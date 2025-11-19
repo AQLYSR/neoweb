@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'FSEX300';
-  src: url('../assets/FSEX300.ttf') format('truetype');
+  src: url('../assets/FSEX300.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
