@@ -19,18 +19,6 @@ export async function getStaticPaths() {
 // 2. Get the entry for the current page from Astro.props
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-
-// Helper function to render stars
-const renderStars = (rating: number | undefined) => {
-    if (rating === undefined || rating === null) {
-        return `<span>Not rated</span>`;
-    }
-    let stars = "";
-    for (let i = 1; i <= 5; i++) {
-        stars += i <= rating ? "★" : "☆";
-    }
-    return stars;
-};
 ---
 
 <Layout title={`Review: ${entry.data.title}`}>
@@ -43,7 +31,21 @@ const renderStars = (rating: number | undefined) => {
             />
             <h1>{entry.data.title}</h1>
             <p class="author">by {entry.data.author}</p>
-            <div class="stars" set:html={renderStars(entry.data.rating)} />
+            <div class="stars">
+                {
+                    entry.data.rating === undefined ||
+                    entry.data.rating === null ? (
+                        <span>Not rated</span>
+                    ) : (
+                        <>
+                            {"★".repeat(entry.data.rating)}
+                            <span style="opacity: 0.2">
+                                {"★".repeat(5 - entry.data.rating)}
+                            </span>
+                        </>
+                    )
+                }
+            </div>
         </div>
 
         <hr />
@@ -86,6 +88,8 @@ const renderStars = (rating: number | undefined) => {
     .stars {
         font-size: 1.5em;
         color: #a9c1e8;
+        display: flex;
+        justify-content: center;
     }
 
     .review-content {

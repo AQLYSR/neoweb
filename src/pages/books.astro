@@ -4,18 +4,6 @@ import Layout from "../layouts/Layout.astro";
 
 const allBooks = await getCollection("books");
 
-// Helper function to render stars for ratings
-const renderStars = (rating: number | undefined) => {
-    if (rating === undefined || rating === null) {
-        return `<span class="stars-not-rated">Not rated yet</span>`;
-    }
-    let stars = "";
-    for (let i = 1; i <= 5; i++) {
-        stars += i <= rating ? "★" : "☆";
-    }
-    return stars;
-};
-
 // Pre-filter books into categories for the specific views
 const readBooks = allBooks.filter((book) => book.data.status === "read");
 const readingBooks = allBooks.filter((book) => book.data.status === "reading");
@@ -74,10 +62,23 @@ const wantToReadBooks = allBooks.filter(
                                 <div class="book-info">
                                     <h4>{book.data.title}</h4>
                                     <p class="author">{book.data.author}</p>
-                                    <div
-                                        class="stars"
-                                        set:html={renderStars(book.data.rating)}
-                                    />
+                                    <div class="stars">
+                                        {book.data.rating === undefined ||
+                                        book.data.rating === null ? (
+                                            <span class="stars-not-rated">
+                                                Not rated yet
+                                            </span>
+                                        ) : (
+                                            <>
+                                                {"★".repeat(book.data.rating)}
+                                                <span style="opacity: 0.2">
+                                                    {"★".repeat(
+                                                        5 - book.data.rating,
+                                                    )}
+                                                </span>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             </CardWrapper>
                         );
@@ -125,10 +126,23 @@ const wantToReadBooks = allBooks.filter(
                                 <div class="book-info">
                                     <h4>{book.data.title}</h4>
                                     <p class="author">{book.data.author}</p>
-                                    <div
-                                        class="stars"
-                                        set:html={renderStars(book.data.rating)}
-                                    />
+                                    <div class="stars">
+                                        {book.data.rating === undefined ||
+                                        book.data.rating === null ? (
+                                            <span class="stars-not-rated">
+                                                Not rated yet
+                                            </span>
+                                        ) : (
+                                            <>
+                                                {"★".repeat(book.data.rating)}
+                                                <span style="opacity: 0.2">
+                                                    {"★".repeat(
+                                                        5 - book.data.rating,
+                                                    )}
+                                                </span>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             </CardWrapper>
                         );
@@ -162,10 +176,23 @@ const wantToReadBooks = allBooks.filter(
                             <div class="book-info">
                                 <h4>{book.data.title}</h4>
                                 <p class="author">{book.data.author}</p>
-                                <div
-                                    class="stars"
-                                    set:html={renderStars(book.data.rating)}
-                                />
+                                <div class="stars">
+                                    {book.data.rating === undefined ||
+                                    book.data.rating === null ? (
+                                        <span class="stars-not-rated">
+                                            Not rated yet
+                                        </span>
+                                    ) : (
+                                        <>
+                                            {"★".repeat(book.data.rating)}
+                                            <span style="opacity: 0.2">
+                                                {"★".repeat(
+                                                    5 - book.data.rating,
+                                                )}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ))
@@ -198,10 +225,23 @@ const wantToReadBooks = allBooks.filter(
                             <div class="book-info">
                                 <h4>{book.data.title}</h4>
                                 <p class="author">{book.data.author}</p>
-                                <div
-                                    class="stars"
-                                    set:html={renderStars(book.data.rating)}
-                                />
+                                <div class="stars">
+                                    {book.data.rating === undefined ||
+                                    book.data.rating === null ? (
+                                        <span class="stars-not-rated">
+                                            Not rated yet
+                                        </span>
+                                    ) : (
+                                        <>
+                                            {"★".repeat(book.data.rating)}
+                                            <span style="opacity: 0.2">
+                                                {"★".repeat(
+                                                    5 - book.data.rating,
+                                                )}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ))
@@ -321,6 +361,8 @@ const wantToReadBooks = allBooks.filter(
     .stars {
         color: #a9c1e8;
         font-size: 1.1em;
+        display: flex;
+        justify-content: center;
     }
 
     .stars-not-rated {

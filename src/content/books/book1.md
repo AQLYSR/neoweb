@@ -1,7 +1,7 @@
 ---
-title: "Project Hail Mary"
-author: "Andy Weir"
-cover: "/covers/project-hail-mary-cover.jpg"
-status: "want to read"
+title: "Sun and Steel"
+author: "Yukio Mishima"
+cover: "/covers/sun-and-steel-cover.jpg"
+status: "reading"
 # Rating is optional for books that are not yet read.
 ---
