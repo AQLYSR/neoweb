@@ -1,0 +1,172 @@
+---
+import "../styles/global.css";
+import "../styles/background.css";
+import "../styles/fonts.css";
+
+const title = "Date | xzat";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <div class="container date-page-container">
+            <main class="box dating-box">
+
+                <div class="profile-text">
+                    <div class="bio">
+                        <p>
+                            Dear Readers,
+                            <br>
+                                I'm a moid searching for his foid
+                                to do what loving moid and foid would do together.
+                                I've been single for a while and ideally that would
+                                not be the case any longer.
+                                Hence, I'm putting myself out here to meet new people
+                                and hopefully getting to know some of them.
+                        </p>
+                        <h3><strong>The Facts, Interests, and The Likes</strong></h3>
+                        <ul>
+                            <li>I'm 21...</li>
+                            <li>
+                                I'm currently doing my bachelor degree in physics,
+                                majoring in electronics and semiconductor.
+                            </li>
+                            <li>
+                                I able to speak and have a good amount of understanding in
+                                Malay (thanks to being born in a Malay family),
+                                English (thanks to my weird obsession with English literature
+                                in my teenage years), and Japanese (thanks to my Japanese friends).
+                            </li>
+                            <li>
+                                I'm obsessed with tennis. It is the perfect sport,
+                                a status signifier, a wealth signaller.
+                                If there can be only one sport and the rest vanish, it will be tennis.
+                            </li>
+                            <li>
+                                I used to be a wordcel in my teenage years and my brain mainly
+                                function as a shape rotators these days. Currenly working on reviving
+                                the wordcel in me that I missed.
+                            </li>
+                            <li>
+                                I'm an agnostic deist. I believe in the thermodynamic god and e/acc.
+                                My life's purpose is to accelerate entropy. But, for practical purposes,
+                                I just say I'm non-religious.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav">
+                        <a href={import.meta.env.BASE_URL} class="back-button">
+                            &larr; Back to Home
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
+
+<style>
+    /* Override global container styles for this specific page layout */
+    .date-page-container {
+        min-height: 100vh;
+        justify-content: center;
+        align-items: center;
+        /* Reduce the massive bottom padding from global styles since we are centering */
+        padding-bottom: 5rem !important;
+    }
+
+    .dating-box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 3rem 2rem;
+    }
+
+    .profile-image-container {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 2rem;
+        border: 2px solid #a9c1e8;
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    h1 {
+        margin: 0 0 0.5rem 0;
+        font-size: 2rem;
+    }
+
+    .tagline {
+        color: #889bb8;
+        margin-top: 0;
+        font-style: italic;
+    }
+
+    .divider {
+        width: 50%;
+        border: 0;
+        border-top: 1px solid #a9c1e8;
+        margin: 1.5rem auto;
+        opacity: 0.5;
+    }
+
+    .bio {
+        text-align: justify;
+        line-height: 1.6;
+        font-size: 1.1em;
+    }
+
+    .footer-nav {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .back-button {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        border: 1px solid #a9c1e8;
+        text-decoration: none;
+        background-color: #000;
+        transition:
+            transform 0.2s,
+            background-color 0.2s,
+            color 0.2s;
+    }
+
+    .back-button:hover {
+        background-color: #a9c1e8;
+        color: #000;
+        transform: translateY(-2px);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+        .dating-box {
+            padding: 2rem 1rem;
+        }
+
+        .profile-image-container {
+            width: 150px;
+            height: 150px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+        }
+    }
+</style>
