@@ -11,7 +11,7 @@ const title = "Date | xzat";
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/svg+xml" href={import.meta.env.BASE_URL + "favicon.svg"} />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
@@ -35,7 +35,7 @@ const title = "Date | xzat";
                         <p>
                             For the longest time, I have a broken framework of love. I view love in a purely transactional way, that
                             I happened to have the a quality that you value and me yours, that I have to prove that I am someone worthy of love.
-                            <a href='/book/the-fault-in-our-stars'>I could never understand why Gus want to be with dying Hazel.</a>
+                            <a href={`${import.meta.env.BASE_URL}book/the-fault-in-our-stars`}>I could never understand why Gus want to be with dying Hazel.</a>
                             The nature of love to me is value-centric, and like all valuable things, is subjective.
                             But I was wrong. Love, to me, now, is about our shared experience and sharing the potential experience. It's no longer
                             an optimization problem. It's about sailing the ships together through the tide.

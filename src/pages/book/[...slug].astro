@@ -25,7 +25,8 @@ const { Content } = await entry.render();
     <div class="review-container">
         <div class="book-details">
             <img
-                src={entry.data.cover}
+                src={import.meta.env.BASE_URL +
+                    entry.data.cover.replace(/^\//, "")}
                 alt={`Cover of ${entry.data.title}`}
                 class="review-cover"
             />
@@ -54,7 +55,9 @@ const { Content } = await entry.render();
             <Content />
         </div>
 
-        <a href="/books" class="back-link">&larr; Back to Bookshelf</a>
+        <a href={`${import.meta.env.BASE_URL}books`} class="back-link">
+            &larr; Back to Bookshelf
+        </a>
     </div>
 </Layout>
 
