@@ -17,9 +17,15 @@ const { title, noBox = false } = Astro.props;
         <title>{title || "xzat's place"}</title>
     </head>
     <body>
+        <div class="menu-overlay"></div>
         <div class="container">
             <header class="box header">
                 <h1>Welcome to xzat's place</h1>
+                <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
             </header>
 
             <div class="content-wrapper">
@@ -36,6 +42,9 @@ const { title, noBox = false } = Astro.props;
                 }
 
                 <aside class="sidebar">
+                    <button id="menu-close" class="menu-close" aria-label="Close Menu">
+                        &larr; Back
+                    </button>
                     <Navigation />
                     <div class="box">
                         <h3>Contact and Social Media</h3>
@@ -71,5 +80,147 @@ const { title, noBox = false } = Astro.props;
                 <span>You have reached the end <br /> &#169; 2025 xzat</span>
             </footer>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const toggle = document.getElementById("menu-toggle");
+                const sidebar = document.querySelector(".sidebar");
+                const overlay = document.querySelector(".menu-overlay");
+                const closeBtn = document.getElementById("menu-close");
+
+                const toggleMenu = () => {
+                    sidebar.classList.toggle("active");
+                    toggle.classList.toggle("active");
+                    overlay.classList.toggle("active");
+                };
+
+                if (toggle && sidebar && overlay) {
+                    toggle.addEventListener("click", toggleMenu);
+                    overlay.addEventListener("click", toggleMenu);
+                }
+
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", toggleMenu);
+                }
+            });
+        </script>
     </body>
 </html>
+
+<style
+    define:vars={{
+        bgEnd: `url("${import.meta.env.BASE_URL}end.webp")`,
+        bgTile: `url("${import.meta.env.BASE_URL}tile.webp")`,
+    }}
+>
+    body {
+        background-image: var(--bgEnd), var(--bgTile);
+        background-repeat: no-repeat, repeat-y;
+        background-position:
+            center bottom,
+            center top;
+        background-size:
+            100% auto,
+            100% auto;
+    }
+
+    .menu-toggle {
+        display: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 1100;
+        padding: 0;
+    }
+
+    .bar {
+        height: 3px;
+        width: 100%;
+        background-color: #a9c1e8;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .menu-close {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: flex;
+        }
+
+        .menu-toggle.active .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 280px;
+            background-color: #1a2634;
+            border-left: 1px solid #a9c1e8;
+            padding: 80px 20px 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 900;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .menu-close {
+            display: flex;
+            background: none;
+            border: 1px solid #a9c1e8;
+            color: #a9c1e8;
+            padding: 5px 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .menu-close:hover {
+            background-color: #a9c1e8;
+            color: #000;
+        }
+    }
+</style>

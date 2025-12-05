@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: "FSEX300", monospace;
     font-size: 16px;
@@ -24,26 +30,28 @@ body {
 .box::after {
     content: "";
     position: absolute;
-    clip-path: polygon(0 4px,
-            2px 4px,
-            2px 2px,
-            4px 2px,
-            4px 0,
-            calc(100% - 4px) 0,
-            calc(100% - 4px) 2px,
-            calc(100% - 2px) 2px,
-            calc(100% - 2px) 4px,
-            100% 4px,
-            100% calc(100% - 4px),
-            calc(100% - 2px) calc(100% - 4px),
-            calc(100% - 2px) calc(100% - 2px),
-            calc(100% - 4px) calc(100% - 2px),
-            calc(100% - 4px) 100%,
-            4px 100%,
-            4px calc(100% - 2px),
-            2px calc(100% - 2px),
-            2px calc(100% - 4px),
-            0 calc(100% - 4px));
+    clip-path: polygon(
+        0 4px,
+        2px 4px,
+        2px 2px,
+        4px 2px,
+        4px 0,
+        calc(100% - 4px) 0,
+        calc(100% - 4px) 2px,
+        calc(100% - 2px) 2px,
+        calc(100% - 2px) 4px,
+        100% 4px,
+        100% calc(100% - 4px),
+        calc(100% - 2px) calc(100% - 4px),
+        calc(100% - 2px) calc(100% - 2px),
+        calc(100% - 4px) calc(100% - 2px),
+        calc(100% - 4px) 100%,
+        4px 100%,
+        4px calc(100% - 2px),
+        2px calc(100% - 2px),
+        2px calc(100% - 4px),
+        0 calc(100% - 4px)
+    );
 }
 
 /* Border layer */
@@ -102,4 +110,20 @@ body {
 a,
 a:visited {
     color: inherit;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .main-content,
+    .sidebar {
+        flex: auto;
+        width: 100%;
+    }
 }
