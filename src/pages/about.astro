@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="About">
     <h2>About</h2>
     <p>
-        Hello! You can call me xzat. Currently studying phyics (electronics and
+        Hello! You can call me AQLYSR. Currently studying phyics (electronics and
         semiconductor) somewhere in Malaysia. I have a lot of interests other
         than physics, like tennis, Japanesese language (N5, otw N3) and
         photography.
@@ -21,4 +21,42 @@ import Layout from "../layouts/Layout.astro";
             shape rotator. Trying to balance both right now.
         </li>
     </ul>
+    <h2>Setup</h2>
+    <div class="setup-container">
+        <pre class="ascii art">
+     _____________
+    /            /   ◯
+   /    _______ /
+  /    /          ⟋─⟍ 
+ /    /           ⟍_⟋ ___
+ \    \              /   \
+  \    \_____________\___/
+   \                /
+    \_____________ /
+        </pre>
+    <ul class: setup-list>
+        <li>OS: CachyOS</li>
+        <li>WM: Hyprland</li>
+        <li>Daily Driver: Asus ROG Flow X13</li>
+        <li>Terminal: Kitty</li>
+        <li>Editor: Zed</li>
+    </ul>
 </Layout>
+
+<style>
+    .setup-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .ascii-art {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.2;
+        color: #a9c1e8;
+    }
+    .setup-list {
+        margin:0;
+    }
+</style>
