@@ -18,6 +18,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    position: relative;
+    z-index: 2;
 }
 
 .box {
@@ -126,4 +128,50 @@ a:visited {
         flex: auto;
         width: 100%;
     }
+}
+
+#snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    color: rgba(255, 255, 255, 0.9);
+    user-select: none;
+    line-height: 1;
+    animation-name: snowfall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    image-rendering: pixelated;
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(10px, 25vh);
+    }
+    50% {
+        transform: translate(-10px, 50vh);
+    }
+    75% {
+        transform: translate(8px, 75vh);
+    }
+    100% {
+        transform: translate(-5px, 110vh);
+    }
+}
+
+body > *:not(#snow) {
+    position: relative;
+    z-index: 1;
 }

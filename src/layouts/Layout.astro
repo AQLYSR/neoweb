@@ -18,6 +18,7 @@ const { title, noBox = false } = Astro.props;
         <title>{title || "AQLYSR"}</title>
     </head>
     <body>
+        <div id="snow"></div>
         <div class="menu-overlay"></div>
         <div class="container">
             <header class="">
@@ -97,9 +98,9 @@ const { title, noBox = false } = Astro.props;
                 const closeBtn = document.getElementById("menu-close");
 
                 const toggleMenu = () => {
-                    sidebar.classList.toggle("active");
-                    toggle.classList.toggle("active");
-                    overlay.classList.toggle("active");
+                    sidebar?.classList.toggle("active");
+                    toggle?.classList.toggle("active");
+                    overlay?.classList.toggle("active");
                 };
 
                 if (toggle && sidebar && overlay) {
@@ -109,6 +110,25 @@ const { title, noBox = false } = Astro.props;
 
                 if (closeBtn) {
                     closeBtn.addEventListener("click", toggleMenu);
+                }
+
+                const snowContainer = document.getElementById("snow");
+                const snowCount = 80;
+
+                if (snowContainer) {
+                    for (let i = 0; i < snowCount; i++) {
+                        const flake = document.createElement("div");
+                        flake.classList.add("snowflake");
+                        flake.textContent = "▪";
+
+                        flake.style.left = Math.random() * 100 + "vw";
+                        flake.style.fontSize = 4 + Math.random() * 6 + "px";
+                        flake.style.animationDuration = 6 + Math.random() * 10 + "s";
+                        flake.style.animationDelay = Math.random() * 10 + "s";
+                        flake.style.opacity = 0.35 + Math.random() * 0.65;
+
+                        snowContainer.appendChild(flake);
+                    }
                 }
             });
         </script>
@@ -131,6 +151,7 @@ const { title, noBox = false } = Astro.props;
             100% auto,
             100% auto;
     }
+
     .header-images {
         display: flex;
         justify-content: center;
