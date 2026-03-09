@@ -1,8 +1,5 @@
 # neoweb (personal website)
 
-## Roadmap
-
-[] Website function as intended
-[] Constant design and theme
-[] Put content and contact
-[] Publish
+## Bug
+- 'back to bookshelf' button in the book review page is not functioning
+- book cover image is not displaying in the book review page
