@@ -1,7 +1,9 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 // Define a schema for each collection you'd like to validate.
 const articlesCollection = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/articles" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -11,6 +13,7 @@ const articlesCollection = defineCollection({
 });
 
 const booksCollection = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/books" }),
   schema: z.object({
     title: z.string(),
     author: z.string(),

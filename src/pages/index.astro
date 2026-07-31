@@ -63,7 +63,7 @@ const recentProjects = allArticles
                 recentBlogs.map((post) => (
                     <li>
                         <a
-                            href={`${import.meta.env.BASE_URL}article/${post.slug}`}
+                            href={`${import.meta.env.BASE_URL}article/${post.id}`}
                         >
                             {post.data.title} -{" "}
                             {post.data.publishDate.toLocaleDateString("en-US", {
@@ -89,7 +89,7 @@ const recentProjects = allArticles
                 recentProjects.map((post) => (
                     <li>
                         <a
-                            href={`${import.meta.env.BASE_URL}article/${post.slug}`}
+                            href={`${import.meta.env.BASE_URL}article/${post.id}`}
                         >
                             {post.data.title} -{" "}
                             {post.data.publishDate.toLocaleDateString("en-US", {
