@@ -2,5 +2,5 @@
 title: 'Solaris'
 author: 'Stanisław Lem'
 cover: 'covers/solaris.jpg'
-status: 'reading'
+status: 'want to read'
 ---
