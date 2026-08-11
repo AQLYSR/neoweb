@@ -1,6 +1,6 @@
 ---
-title: 'CMOS VLSI Design: A Circuits and System Perspective'
-author: 'Heil H. E. Wester & David Money Harris'
-cover: 'covers/cmos-vlsi-design.webp'
+title: 'Digital Integrated Circuits: A Design Perspective'
+author: 'Jan M. Rabaey, Anantha Chandrakasan & Borivoje Nikolic'
+cover: 'covers/digital_integrated_circuits.jpg'
 status: 'reading'
 ---
